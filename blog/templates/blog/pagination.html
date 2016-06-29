@@ -1,0 +1,48 @@
+<ul class="pagination">
+    <li {% if not article_list.has_previous %} class="disabled" {% endif %}>
+        <a href="{% if article_list.has_previous %} ?page={{ article_list.previous_page_number }}{% else %}#{% endif %}">上一页</a>{# &laquo; 双左箭头 #}
+    </li>
+    {% if first_page == current_page %}
+    {# 当前页就是第一页 #}
+    <li class="active">
+        <a href="#">1</a>
+    </li>
+    {% else %}
+    <li>
+        <a href="?page=1">1</a>
+    </li>
+    {% endif %}
+    {% if  pages_first > 2 %}
+    <li class="disabled">
+        <a href="#">&hellip;</a>
+        {# &hellip;  ..... #}
+    </li>
+    {% endif %}
+    {% for page in pages %} {# # 通过for循环把pages中的值显示出来 #}
+        {% if page == current_page %} {# # 是否当前页，按钮会显示不同的样式 #}
+            <li><a href="#">{{ page }}</a> </li>
+        {% else %}
+            <li><a href="?page={{ page }}">{{ page }}</a></li>
+        {% endif %}
+    {% endfor %}  
+
+     {# # pages最后一个值+1的值小于最大页码号，说明有页码号需要被省略号替换 #}
+    {% if pages_last < last_page %}
+        <li class="disabled">
+        <a href="#">&hellip;</a>
+        {# &hellip;  ..... #}
+        </li>
+    {% endif %}
+
+     {# # 永远显示最后一页的页码号，如果只有一页则前面已经显示了1就不用再显示了 #}
+    {% if last_page != 1 %}
+        {% if last_page == current_page %}
+            <li class="active"><a href="#">{{ last_page }}</a></li>
+        {% else %}
+            <li><a href="?page={{ last_page }}">{{ last_page }}</a></li>
+        {% endif %}
+    {% endif %}
+    <li {% if not article_list.has_next %} class="disabled" {% endif %}>
+        <a href="{% if article_list.has_next %} ?page={{ article_list.next_page_number }}{% else %}#{% endif %}">下一页</a>{# &laquo; 双左箭头 #}
+    </li>
+</ul>

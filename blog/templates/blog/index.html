@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block blog-main %}
+    {% load paginate_tags %}
+    {% paginate article_list 5 %}
+     {% for article in article_list %}
+     {# <div class="blog-post"> #}
+     <div class="jumbotron">
+         <h3><a href="{% url 'blog:detail' article.pk %}">{{ article.title }}</a></h3>
+         <p class="blog-post-meta small" >发表于&nbsp;{{ article.created_time|date:"Y年n月d日 " }}{{ article.created_time|time:"H:i" }}&nbsp;  &nbsp;分类于&nbsp;<a href="{% url 'blog:category' article.category.pk %}">{{ article.category }}</a></p>
+         <p>{{ article.abstract }}</p>
+         <p class="text-right"><a href="{% url 'blog:detail' article.pk %}">阅读全文</a></p>
+     </div>
+     {% endfor %}
+     {% include 'blog/pagination.html' %}
+{% endblock blog-main %}
+
+

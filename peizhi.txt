@@ -1,0 +1,39 @@
+server {
+        listen       80;
+        server_name  www.andor-z.cc;
+
+
+        location / {
+            include  uwsgi_params;
+            uwsgi_pass 127.0.0.1:8080;
+            uwsgi_param UWSGI_CHDIR  /root/myweb/Z;
+            uwsgi_param UWSGI_SCRIPT config.wsgi;
+           
+            }
+          
+       } 
+
+server {
+        listen       80;
+        server_name  cmw.andor-z.cc;
+        # server_name  localhost;
+        #charset koi8-r;
+        #access_log  logs/host.access.log  main;
+        location / {
+            include  uwsgi_params;
+            uwsgi_pass 127.0.0.1:8001;
+            uwsgi_param UWSGI_CHDIR  /root/myweb/CM-Web;
+            uwsgi_param UWSGI_SCRIPT manage:app;                
+            # root   html;
+            # index  index.html index.htm;
+        }
+
+        #error_page  404              /404.html;
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+
+

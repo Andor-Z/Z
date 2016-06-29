@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+    {{ article.title }} - Andor-Z的博客
+{% endblock title %}
+{% block blog-header %}
+    <h2 class="blog-post-title">{{ article.title }}</h2>
+{% endblock blog-header %}
+{% block blog-main %}
+<div class="blog-post">
+    
+    <p class="blog-post-meta">发表时间：{{ article.created_time|date:"Y年n月d日 " }}{{ article.created_time|time:"H:i" }}</p>
+    <p>{{ article.body|safe }}</p>
+</div>
+{% include 'blog/comment.html' %}
+{% endblock blog-main %}
