@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 {% load staticfiles %}
 <html lang="zh-CN">
@@ -128,4 +129,136 @@
 {% endblock script %}
 
 </body>
+=======
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Andor的博客{% endblock title %}</title>
+
+    {% block styles %}
+        
+        <link rel="stylesheet" type="text/css" href="{% static "bootstrap/3.3.5/css/bootstrap.min.css" %}">
+        {# <link rel="stylesheet" type="text/css" href="{% static "bootstrap/3.3.5/css/bootstrap-theme.min.css" %}"> #}
+        <link rel="stylesheet" type="text/css" href="{% static "blog/css/blog.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "blog/css/pygments/github.css" %}">
+    {% endblock styles %}
+</head>
+
+
+<body>
+
+{% block navbar %}
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+        <div class="col-sm-12">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand " href="{% url 'blog:index' %}">Andor-Z</a>
+            </div>
+             <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{% url 'blog:index' %}">Blog</a></li>
+                    <li><a href="http://cmw.andor-z.cc">CostManger</a></li>  
+                </ul>
+            </div>
+        </div>
+    </div>    
+</nav>
+{% endblock navbar %}
+
+
+
+
+
+{% block content %}
+<div class="container theme-showcase">
+    {% block blog-header %}
+        
+    {% endblock blog-header %}
+    <div class="row">
+        <div class="col-md-8 main-content">
+            {% block blog-main %}{% endblock blog-main %}
+        </div>
+        <div class="col-md-3 col-md-offset-1">
+
+        
+{% block blog-sidebar %}
+    
+    <div class="sidebar-module">
+        <h3>分类</h3>
+        <div class="list-group">
+            {% for category in category_list %}
+            <a class="list-group-item" href="{% url 'blog:category' category.pk %}">
+            <span class="badge">0</span>
+            {{ category.name }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+     <h3>文章归档</h3>
+     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+         {% for year,months in date_archive %}
+             <div class="panel panel-default">
+                 <div class="panel-heading" role="tab" id="heading{{ forloop.counter }}">
+                     <h4 class="panel-title">
+                         <a role="button" data-toggle="collapse" data-parent="#accordion"
+                            href="#collapse{{ forloop.counter }}"
+                            aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+                             {{ year }} 年
+                         </a>
+                     </h4>
+                 </div>
+                 <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse in" role="tabpanel"
+                      aria-labelledby="heading{{ forloop.counter }}">
+                     <div class="panel-body">
+                         {% for month in months %}
+                             <a href="{% url 'blog:archive' year month %}"><p>{{ month }} 月</p></a>
+                         {% endfor %}
+                     </div>
+                 </div>
+             </div>
+         {% endfor %}
+     </div> 
+     <h4>标签</h4>
+     <h4>
+     {% for tag in tag_list %}
+     <a href="{% url 'blog:tag' tag.pk %}">
+    <span class="{% cycle 'label label-primary' 'label label-success' %}">{{ tag.name }}</span>
+     </a>
+     {% endfor %}
+     </h4>
+     {# <div class="sidebar-module sidebar-module-inset">  #}
+     {# <h4>标签</h4> #}
+     {# {% for tag in tag_list %} #}
+     {# <div class="panel-body"><a href="{% url 'blog:tag' tag.pk %}"></a>{{ tag.name }}</div> #}
+     {# {% endfor %} #}
+     {# </div>                   #}
+{% endblock blog-sidebar %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block footer %}
+    <footer class="blog-footer">
+      <p>©&nbsp;2016&nbsp;Andor-Z.cc&nbsp;<a href="http://www.miitbeian.gov.cn/">浙ICP备16022805号</a></p>
+    </footer>
+{% endblock footer %}
+    
+
+{% block script %}
+    <script type="text/javascript" src="{% static "js/jquery-3.0.0.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "bootstrap/3.3.5/js/bootstrap.min.js" %}"></script>
+{% endblock script %}
+
+</body>
+>>>>>>> refs/remotes/origin/master
 </html>
